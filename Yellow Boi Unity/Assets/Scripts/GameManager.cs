@@ -85,4 +85,19 @@ public class GameManager : MonoBehaviour
         else
             GameOver();
     }
+
+    public void EatPellet(Pellet pellet) {
+        pellet.gameObject.SetActive(false);
+
+        SetScore(score + pellet.points);
+    }
+
+    public void EatPowerPellet(PowerPellet pellet)
+    {
+        for (int i = 0; i < predators.Length; i++) {
+            // turn predators to prey
+        }
+
+        EatPellet(pellet);
+    }
 }
