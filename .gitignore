@@ -3,6 +3,8 @@
 # Unity generated #
 # =============== #
 [Aa]ssets/AssetStoreTools*
+# Asset meta data should only be ignored when the corresponding asset is also ignored
+!/[Aa]ssets/**/*.meta
 [Bb]uild/
 [Ll]ibrary/
 [Ll]ocal[Cc]ache/
