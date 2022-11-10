@@ -90,14 +90,32 @@ public class GameManager : MonoBehaviour
         pellet.gameObject.SetActive(false);
 
         SetScore(score + pellet.points);
+        if (!HasRemainingPellets())
+        {
+            prey.gameObject.SetActive(false);
+            Invoke(nameof(NewRound), 3f);
+        }
     }
 
     public void EatPowerPellet(PowerPellet pellet)
     {
-        for (int i = 0; i < predators.Length; i++) {
+        /*for (int i = 0; i < predators.Length; i++) {
             // turn predators to prey
-        }
+        }*/
 
         EatPellet(pellet);
+    }
+
+    private bool HasRemainingPellets()
+    {
+        foreach (Transform pellet in pellets)
+        {
+            if (pellet.gameObject.activeSelf)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

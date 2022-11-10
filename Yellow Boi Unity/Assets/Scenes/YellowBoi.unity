@@ -1338,6 +1338,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 525670622}
+  - component: {fileID: 525670623}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1359,6 +1360,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &525670623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525670621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a37e43397a657444902145467cf61b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  predators: []
+  prey: {fileID: 1256509868}
+  pellets: {fileID: 1150939913}
 --- !u!1 &548487317
 GameObject:
   m_ObjectHideFlags: 0

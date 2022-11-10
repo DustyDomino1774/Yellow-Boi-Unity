@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PowerPellet : Pellet
 {
-    public int points = 10;
-    
+    public float duration = 6f;
+    protected override void Eaten()
+    {
+        FindObjectOfType<GameManager>().EatPowerPellet(this);
+    }
+
 }

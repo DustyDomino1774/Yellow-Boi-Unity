@@ -8,7 +8,7 @@ public class Pellet : MonoBehaviour
 
     protected virtual void Eaten()
     {
-        
+        FindObjectOfType<GameManager>().EatPellet(this);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
