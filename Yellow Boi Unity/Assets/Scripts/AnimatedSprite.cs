@@ -35,4 +35,11 @@ public class AnimatedSprite : MonoBehaviour
         if (this.animationFrame >= 0 && this.animationFrame < this.sprites.Length)
             this.spriteRenderer.sprite = this.sprites[this.animationFrame];
     }
+
+    public void Reset()
+    {
+        animationFrame = -1;
+
+        Animate();
+    }
 }
