@@ -6,7 +6,9 @@
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 [Bb]uild/
+/[Bb]uilds/
 [Ll]ibrary/
+/[Ll]ogs/
 [Ll]ocal[Cc]ache/
 [Oo]bj/
 [Tt]emp/
