@@ -8,6 +8,11 @@ public class GameManager : MonoBehaviour
     public Prey prey; //pacman/ai/yellow boi
     public Transform pellets;
 
+    //public Text gameOverText;
+    //public Text scoreText;
+    //public Text livesText;
+
+    public int predMultiplier { get; private set; } = 1;
     public int score { get; private set; }
     public int lives { get; private set; }
 
@@ -36,22 +41,20 @@ public class GameManager : MonoBehaviour
             pellet.gameObject.SetActive(true);
         }
 
-        for (int i = 0; i < this.predators.Length; i++)
-            this.predators[i].gameObject.SetActive(true);
-
-        this.prey.gameObject.SetActive(true);
+        ResetState();
     }
 
     private void ResetState()
     {
         for (int i = 0; i < this.predators.Length; i++)
-            this.predators[i].gameObject.SetActive(true);
+            this.predators[i].ResetState();
 
-        this.prey.gameObject.SetActive(true);
+        this.prey.ResetState();
     }
 
     private void GameOver()
     {
+        //gameOverText.enabled = true;
         for (int i = 0; i < this.predators.Length; i++)
             this.predators[i].gameObject.SetActive(false);
 
@@ -61,20 +64,27 @@ public class GameManager : MonoBehaviour
     private void SetScore(int score)
     {
         this.score = score;
+        //scoreText.text = score.ToString().PadLeft(2, '0');
     }
 
     private void SetLives(int lives)
     {
         this.lives = lives;
+        //livesText.text = "x" + lives.ToString();
     }
 
-    public void PredatorBecomesPrey(Predator predator)
+    public void PredatorCaught(Predator predator)
     {
-        SetScore(this.score + predator.points);
+        int points = predator.points * predMultiplier;
+        SetScore(this.score + points);
+
+        predMultiplier++;
     }
 
     public void PreyCaught()
     {
+        prey.DeathSequence();
+
         this.prey.gameObject.SetActive(false);
 
         SetLives(this.lives - 1);
@@ -99,23 +109,26 @@ public class GameManager : MonoBehaviour
 
     public void EatPowerPellet(PowerPellet pellet)
     {
-        /*for (int i = 0; i < predators.Length; i++) {
-            // turn predators to prey
-        }*/
+        for (int i = 0; i < predators.Length; i++) {
+            predators[i].frightened.Enable(pellet.duration);
+        }
 
         EatPellet(pellet);
+        CancelInvoke(nameof(ResetPredMultiplier));
+        Invoke(nameof(ResetPredMultiplier), pellet.duration);
     }
 
     private bool HasRemainingPellets()
     {
         foreach (Transform pellet in pellets)
-        {
             if (pellet.gameObject.activeSelf)
-            {
                 return true;
-            }
-        }
 
         return false;
+    }
+
+    private void ResetPredMultiplier()
+    {
+        predMultiplier = 1;
     }
 }
