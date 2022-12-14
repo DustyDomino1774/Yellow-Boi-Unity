@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,21 +10,28 @@ public class GameManager : MonoBehaviour
     public Prey prey; //pacman/ai/yellow boi
     public Transform pellets;
 
-    //public Text gameOverText;
-    //public Text scoreText;
-    //public Text livesText;
+    public Text gameOverText;
+    public Text scoreText;
+    public Text livesText;
 
     public int predMultiplier { get; private set; } = 1;
     public int score { get; private set; }
     public int lives { get; private set; }
+    public int livesDebug;
 
     private void Start()
     {
+        //for controller debugging
+        for (int i = 0; i < Gamepad.all.Count; i++)
+        {
+            Debug.Log(Gamepad.all[i].name);
+        }
         NewGame();
     }
 
     private void Update()
     {
+        livesDebug = lives;
         if ( (this.lives <= 0) &&(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
             NewGame();
         } 
@@ -37,6 +46,9 @@ public class GameManager : MonoBehaviour
     
     private void NewRound()
     {
+        //disablel game over text at start of game
+        gameOverText.enabled = false;
+
         foreach (Transform pellet in this.pellets){
             pellet.gameObject.SetActive(true);
         }
@@ -54,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        //gameOverText.enabled = true;
+        gameOverText.enabled = true;
         for (int i = 0; i < this.predators.Length; i++)
             this.predators[i].gameObject.SetActive(false);
 
@@ -64,13 +76,13 @@ public class GameManager : MonoBehaviour
     private void SetScore(int score)
     {
         this.score = score;
-        //scoreText.text = score.ToString().PadLeft(2, '0');
+        scoreText.text = score.ToString().PadLeft(2, '0');
     }
 
     private void SetLives(int lives)
     {
         this.lives = lives;
-        //livesText.text = "x" + lives.ToString();
+        livesText.text = "x" + lives.ToString();
     }
 
     public void PredatorCaught(Predator predator)
@@ -87,7 +99,8 @@ public class GameManager : MonoBehaviour
 
         this.prey.gameObject.SetActive(false);
 
-        SetLives(this.lives - 1);
+        this.lives--;
+        livesText.text = "x" + lives.ToString();
 
         if (this.lives > 0){
             Invoke(nameof(ResetState), 3.0f);

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Start Screen.unity
+    guid: 6c10eca1c8eba98458862aa628cf7007
+  - enabled: 1
     path: Assets/Scenes/YellowBoi.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

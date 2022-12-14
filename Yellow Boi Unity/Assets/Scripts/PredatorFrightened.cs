@@ -39,32 +39,32 @@ public class PredatorFrightened : PredatorBehavior
         predator.SetPosition(predator.home.inside.position);
         predator.home.Enable(duration);
 
-        body.enabled = false;
-        eyes.enabled = true;
-        blue.enabled = false;
-        white.enabled = false;
+        this.body.enabled = false;
+        this.eyes.enabled = true;
+        this.blue.enabled = false;
+        this.white.enabled = false;
     }
 
     private void Flash()
     {
         if (!eaten)
         {
-            blue.enabled = false;
-            white.enabled = true;
-            white.GetComponent<AnimatedSprite>().Reset();
+            this.blue.enabled = false;
+            this.white.enabled = true;
+            this.white.GetComponent<AnimatedSprite>().Reset();
         }
     }
 
     private void OnEnable()
     {
         blue.GetComponent<AnimatedSprite>().Reset();
-        predator.movement.speedMult = 0.5f;
+        this.predator.movement.speedMult = 0.5f;
         eaten = false;
     }
 
     private void OnDisable()
     {
-        predator.movement.speedMult = 1f;
+        this.predator.movement.speedMult = 1f;
         eaten = false;
     }
 
