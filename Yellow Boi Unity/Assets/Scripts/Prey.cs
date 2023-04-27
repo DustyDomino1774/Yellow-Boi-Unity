@@ -97,21 +97,24 @@ public class Prey : MonoBehaviour
                 this.movement.SetDirection(Vector2.left);
             }
 
-            if (Gamepad.all[0].dpad.up.isPressed)
+            if (Gamepad.all.Count > 0)
             {
-                this.movement.SetDirection(Vector2.up);
-            }
-            else if (Gamepad.all[0].dpad.down.isPressed)
-            {
-                this.movement.SetDirection(Vector2.down);
-            }
-            else if (Gamepad.all[0].dpad.right.isPressed)
-            {
-                this.movement.SetDirection(Vector2.right);
-            }
-            else if (Gamepad.all[0].dpad.left.isPressed)
-            {
-                this.movement.SetDirection(Vector2.left);
+                if (Gamepad.all[0].dpad.up.isPressed)
+                {
+                    this.movement.SetDirection(Vector2.up);
+                }
+                else if (Gamepad.all[0].dpad.down.isPressed)
+                {
+                    this.movement.SetDirection(Vector2.down);
+                }
+                else if (Gamepad.all[0].dpad.right.isPressed)
+                {
+                    this.movement.SetDirection(Vector2.right);
+                }
+                else if (Gamepad.all[0].dpad.left.isPressed)
+                {
+                    this.movement.SetDirection(Vector2.left);
+                }
             }
         }
 
@@ -131,7 +134,7 @@ public class Prey : MonoBehaviour
             if (node != null && enabled)
             {
                 Vector2 direction = Vector2.zero;
-                float maxDistance = float.MaxValue;
+                float maxDistance = 0f;
 
                 // Find the available direction that moves farthest from predators/ghost
                 foreach (Vector2 availableDirection in node.availableDirections)

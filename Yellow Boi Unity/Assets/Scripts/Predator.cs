@@ -93,10 +93,14 @@ public class Predator : MonoBehaviour
         transform.position = position;
     }
 
+    //Collision script for deciding who is eaten/caught
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Prey"))
         {
+            // for debugging
+            Debug.LogError("Collision with Yellowboi detected");
+
             if (frightened.enabled)
                 FindObjectOfType<GameManager>().PredatorCaught(this);
             else
